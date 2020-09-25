@@ -22,6 +22,10 @@ line_list = file_object.readlines()
 #Close the file
 file_object.close()
 
+#Create two empty dictionary objects
+date_dict = {}
+coord_dict = {}
+
 #Iterate through all lines in the line list
 for lineString in line_list:
     #First way of iterating:
@@ -40,26 +44,15 @@ for lineString in line_list:
     record_id = lineData[0]
     obs_date = lineData[2]
     obs_lc = lineData[4]
+    #if obs_lc not in ("1", "2", "3"):
+        #continue
     obs_lat = lineData[6]
     obs_lon = lineData[7]
     
-    #Print the location of sara
-    print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+    #Print the location of sara if lc is 1,2, or 3
+    if obs_lc in ("1", "2", "3"):
+        print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+        date_dict[record_id] = obs_date
+        coord_dict[record_id] = (obs_lat, obs_lon) #created a tuple form the lat, lon
 
-lineString= '20616	29051	7/3/2003 9:13	3	66	33.898	-77.958	27.369	-46.309	6	0	-126	529	3	401 651134.7	0'
-print(lineString)
-
-#split the string into a list of data items 
-lineData = lineString.split()
-
-#extract items in list into variables 
-record_id = lineData[0]
-obs_date = lineData[2]
-obs_lc = lineData[4]
-obs_lat = lineData[6]
-obs_lon = lineData[7]
-
-#Print the location of Sara
-print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat}, Lon:{obs_lon} on {obs_date}")
-
-
+    
